@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Meal Plan</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/healthy-food-background-with-various-green-herbs-vegetables-ingredients-cooking-salad-vegetarian-vegan-food-concept-top-view-copy-space_630207-5810.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 5vh auto;
+            text-align: center;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
+        }
+
+        .meal-box {
+            text-align: left;
+            padding: 20px;
+            background-color: #ecf9f1;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #219150;
+        }
+
+        .uploaded-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+
+        form {
+            margin-top: 2rem;
+        }
+
+        .submit-btn {
+            background-color: #2980b9;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #21689b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Personalized Meal Plan</h2>
+
+        <!-- Banners -->
+        <img src="https://sa1s3optim.patientpop.com/assets/images/provider/photos/2731342.jpg" alt="Nutrition Expert" class="banner">
+        <img src="https://source.unsplash.com/800x400/?meal,food-plan" alt="Meal Plan" class="banner">
+
+        <!-- Uploaded image -->
+        {% if image_filename %}
+            <h3>Your Uploaded Food Image:</h3>
+            <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Food" class="uploaded-img">
+        {% endif %}
+
+        <!-- Meal plan output -->
+        <div class="meal-box">
+            <p><strong>Breakfast:</strong> {{ meal_plan.breakfast }}</p>
+            <p><strong>Lunch:</strong> {{ meal_plan.lunch }}</p>
+            <p><strong>Dinner:</strong> {{ meal_plan.dinner }}</p>
+            <hr>
+            <p><strong>Why these foods?</strong> {{ meal_plan.explanation }}</p>
+        </div>
+
+        <!-- Feedback form -->
+        <form method="POST" action="/result">
+            <input type="hidden" name="age" value="{{ request.form.age }}">
+            <input type="hidden" name="gender" value="{{ request.form.gender }}">
+            <input type="hidden" name="goal" value="{{ request.form.goal }}">
+            <input type="hidden" name="diet" value="{{ request.form.diet }}">
+
+            <label for="feedback"><strong>Suggest improvements or changes:</strong></label>
+            <textarea name="feedback" rows="4" placeholder="e.g., Add more vegetarian options or reduce carbs..."></textarea>
+            <br>
+            <button type="submit" class="submit-btn">Update Recommendations</button>
+        </form>
+
+        <a class="button" href="/form">Start Over</a>
+    </div>
+</body>
+</html>
