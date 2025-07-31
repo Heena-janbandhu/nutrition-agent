@@ -1,3 +1,4 @@
 flask
-ibm-generative-ai
+gunicorn
 python-dotenv
+ibm-generative-ai
