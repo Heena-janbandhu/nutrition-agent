@@ -65,6 +65,7 @@ python app.py
 
 🌍 Deployment
 The app is deployed using Render and is publicly accessible.
+linl - https://nutrition-agent-c7ol.onrender.com/ 
 IBM Granite API is used via genai SDK (v3.0.0) fulfilling the cloud requirement.
 
 📩 Feedback Mechanism
